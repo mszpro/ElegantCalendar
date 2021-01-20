@@ -88,6 +88,7 @@ private extension MonthView {
                     .font(.caption)
                     .frame(width: CalendarConstants.Monthly.dayWidth)
                     .foregroundColor(.gray)
+                    .padding(.leading)
             }
         }
     }
