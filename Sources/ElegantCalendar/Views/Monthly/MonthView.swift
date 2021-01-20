@@ -31,7 +31,7 @@ struct MonthView: View, MonthlyCalendarManagerDirectAccess {
             weeksViewWithDaysOfWeekHeader
             if selectedDate != nil {
                 calenderAccessoryView
-                    .padding(.leading, CalendarConstants.Monthly.outerHorizontalPadding)
+//                    .padding(.leading, CalendarConstants.Monthly.outerHorizontalPadding)
                     .id(selectedDate!)
             }
             Spacer()
