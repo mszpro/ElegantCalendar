@@ -116,19 +116,8 @@ private struct CalendarAccessoryView: View, MonthlyCalendarManagerDirectAccess {
 
     @State private var isVisible = false
 
-    private var numberOfDaysFromTodayToSelectedDate: Int {
-        let startOfToday = calendar.startOfDay(for: Date())
-        let startOfSelectedDate = calendar.startOfDay(for: selectedDate!)
-        return calendar.dateComponents([.day], from: startOfToday, to: startOfSelectedDate).day!
-    }
-
-    private var isNotYesterdayTodayOrTomorrow: Bool {
-        abs(numberOfDaysFromTodayToSelectedDate) > 1
-    }
-
     var body: some View {
         VStack {
-            selectedDayInformationView
             GeometryReader { geometry in
                 self.datasource?.calendar(viewForSelectedDate: self.selectedDate!,
                                           dimensions: geometry.size)
@@ -141,45 +130,6 @@ private struct CalendarAccessoryView: View, MonthlyCalendarManagerDirectAccess {
 
     private func makeVisible() {
         isVisible = true
-    }
-
-    private var selectedDayInformationView: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                dayOfWeekWithMonthAndDayText
-                if isNotYesterdayTodayOrTomorrow {
-                    daysFromTodayText
-                }
-            }
-            .padding(.leading)
-            Spacer()
-        }
-    }
-
-    private var dayOfWeekWithMonthAndDayText: some View {
-        let monthDayText: String
-        if numberOfDaysFromTodayToSelectedDate == -1 {
-            monthDayText = "Yesterday"
-        } else if numberOfDaysFromTodayToSelectedDate == 0 {
-            monthDayText = "Today"
-        } else if numberOfDaysFromTodayToSelectedDate == 1 {
-            monthDayText = "Tomorrow"
-        } else {
-            monthDayText = selectedDate!.dayOfWeekWithMonthAndDay
-        }
-
-        return Text(monthDayText.uppercased())
-            .font(.subheadline)
-            .bold()
-    }
-
-    private var daysFromTodayText: some View {
-        let isBeforeToday = numberOfDaysFromTodayToSelectedDate < 0
-        let daysDescription = isBeforeToday ? "DAYS AGO" : "DAYS FROM TODAY"
-
-        return Text("\(abs(numberOfDaysFromTodayToSelectedDate)) \(daysDescription)")
-            .font(.system(size: 10))
-            .foregroundColor(.gray)
     }
 
 }
