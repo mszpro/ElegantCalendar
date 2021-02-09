@@ -6,12 +6,13 @@ import SwiftUI
 public struct ElegantCalendarView: View {
 
     var theme: CalendarTheme = .default
-    public var axis: Axis = .horizontal
+    public var axis: Axis
 
     public let calendarManager: ElegantCalendarManager
 
-    public init(calendarManager: ElegantCalendarManager) {
+    public init(calendarManager: ElegantCalendarManager, axis: Axis = .horizontal) {
         self.calendarManager = calendarManager
+        self.axis = axis
     }
 
     public var body: some View {
